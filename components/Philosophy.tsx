@@ -14,6 +14,7 @@ import {
   type Variants,
 } from "framer-motion";
 import { Reveal } from "./motion/Reveal";
+import { ASSETS } from "@/constants/assets";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -214,7 +215,7 @@ export default function Philosophy() {
               className="absolute inset-0"
             >
               <Image
-                src="/images/philosophy-grasse.jpg"
+                src={ASSETS.images.philosophyGrasse}
                 alt="The Aurélis bottle in low light"
                 fill
                 sizes="(min-width: 1024px) 666px, 100vw"

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, revealItem } from "./motion/Reveal";
+import { ASSETS } from "@/constants/assets";
 
 const FILTERS = ["All", "Woody", "Floral", "Amber", "Fresh"];
 
@@ -14,7 +15,7 @@ const PRODUCTS = [
     family: "Woody",
     notes: "Smoked Woods / Amber / Musk",
     price: 245,
-    image: "/images/product-noir.jpg",
+    image: ASSETS.images.productNoir,
   },
   {
     index: "02",
@@ -22,7 +23,7 @@ const PRODUCTS = [
     family: "Fresh",
     notes: "Bergamot / Iris / Cedar",
     price: 210,
-    image: "/images/product-elan.jpg",
+    image: ASSETS.images.productElan,
   },
   {
     index: "03",
@@ -30,7 +31,7 @@ const PRODUCTS = [
     family: "Floral",
     notes: "Rose / Vanilla / Tonka",
     price: 265,
-    image: "/images/product-velvet.jpg",
+    image: ASSETS.images.productVelvet,
   },
 ];
 

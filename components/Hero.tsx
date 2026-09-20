@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ASSETS } from "@/constants/assets";
 
 const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
 
@@ -32,7 +33,7 @@ export default function Hero() {
         playsInline
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/videos/hero.mp4" type="video/mp4" />
+        <source src={ASSETS.videos.hero} type="video/mp4" />
       </motion.video>
 
       <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/10" />

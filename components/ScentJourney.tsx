@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "./motion/Reveal";
+import { ASSETS } from "@/constants/assets";
 
 const STAGES = [
   {
@@ -38,7 +39,7 @@ export default function ScentJourney() {
         playsInline
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/videos/scent-journey.mp4" type="video/mp4" />
+        <source src={ASSETS.videos.scentJourney} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/10 to-ink/90" />
       <div className="absolute inset-0 bg-ink/35" />

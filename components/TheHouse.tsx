@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Reveal } from "./motion/Reveal";
+import { ASSETS } from "@/constants/assets";
 
 export default function TheHouse() {
   return (
@@ -10,7 +11,7 @@ export default function TheHouse() {
         <Reveal>
           <div className="relative h-[420px] w-full overflow-hidden bg-ink-soft sm:h-[560px] lg:h-[799px]">
             <Image
-              src="/images/the-house.jpg"
+              src={ASSETS.images.theHouse}
               alt="Petals and stone beside the Aurélis bottle"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

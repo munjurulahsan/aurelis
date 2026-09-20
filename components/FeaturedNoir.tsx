@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Reveal } from "./motion/Reveal";
+import { ASSETS } from "@/constants/assets";
 
 const NOTES = [
   { label: "Top", value: "Saffron" },
@@ -24,21 +25,22 @@ export default function FeaturedNoir() {
     damping: 20,
   });
 
-  function handleMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
     mx.set((e.clientX - rect.left) / rect.width - 0.5);
     my.set((e.clientY - rect.top) / rect.height - 0.5);
-  }
+  };
 
-  function handleLeave() {
+  const handleLeave = () => {
     mx.set(0);
     my.set(0);
-  }
+  };
 
   return (
-    <section className="bg-ink-soft px-6 py-24 text-cream md:px-14">
-      <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-16 py-8 lg:grid-cols-2 lg:gap-24">
+    <section className="bg-ink px-6 py-24 text-cream md:px-14 md:py-[180px]">
+      <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
         <Reveal>
           <div
             ref={ref}
@@ -52,7 +54,7 @@ export default function FeaturedNoir() {
               className="relative h-full w-full overflow-hidden"
             >
               <Image
-                src="/images/featured-noir.jpg"
+                src={ASSETS.images.featuredNoir}
                 alt="Noir 01 eau de parfum, lit from behind through smoke"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"

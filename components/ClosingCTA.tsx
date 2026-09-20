@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { Reveal } from "./motion/Reveal";
+import { ASSETS } from "@/constants/assets";
 
 export default function ClosingCTA() {
   return (
     <section className="relative h-[560px] w-full overflow-hidden bg-ink sm:h-[720px] md:h-[953px]">
       <Image
-        src="/images/closing-cta.jpg"
+        src={ASSETS.images.closingCta}
         alt="Cinematic closing scene of the Aurélis bottle"
         fill
         sizes="100vw"

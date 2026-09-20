@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, revealItem } from "./motion/Reveal";
+import { ASSETS } from "@/constants/assets";
 
 const INGREDIENTS = [
   {
@@ -10,7 +11,7 @@ const INGREDIENTS = [
     name: "Saffron",
     subtitle: "Warm / Spiced",
     copy: "Threads picked at dawn. Three grams of it colours an entire maceration.",
-    image: "/images/ingredient-saffron.jpg",
+    image: ASSETS.images.ingredientSaffron,
     offset: "",
   },
   {
@@ -18,7 +19,7 @@ const INGREDIENTS = [
     name: "Iris",
     subtitle: "Powdery / Elegant",
     copy: "Rhizomes rested six years before distillation. Cool, mineral, quietly expensive.",
-    image: "/images/ingredient-iris.jpg",
+    image: ASSETS.images.ingredientIris,
     offset: "lg:mt-16",
   },
   {
@@ -26,7 +27,7 @@ const INGREDIENTS = [
     name: "Oud",
     subtitle: "Deep / Smoky",
     copy: "Resinous heartwood, aged in clay. The base note the house is built on.",
-    image: "/images/ingredient-oud.jpg",
+    image: ASSETS.images.ingredientOud,
     offset: "lg:mt-32",
   },
 ];
