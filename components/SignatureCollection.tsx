@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal, RevealGroup, revealItem } from "./motion/Reveal";
 import { ASSETS } from "@/constants/assets";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const FILTERS = ["All", "Woody", "Floral", "Amber", "Fresh"];
 
@@ -36,16 +38,24 @@ const PRODUCTS = [
 ];
 
 export default function SignatureCollection() {
+  const reduce = Boolean(useReducedMotion());
   const [active, setActive] = useState("All");
   const visible = PRODUCTS.filter(
     (p) => active === "All" || p.family === active
   );
 
   return (
-    <section id="collection" className="bg-cream px-6 pb-24 pt-6 text-charcoal md:px-14 md:pb-[170px]">
+    <motion.section
+      id="collection"
+      initial={{ opacity: 0, y: reduce ? 0 : 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: "-60px" }}
+      transition={{ duration: 1.2, ease: EASE }}
+      className="bg-cream px-6 pb-24 pt-6 text-charcoal md:px-14 md:pb-[170px]"
+    >
       <div className="mx-auto max-w-container">
         <div className="flex flex-col items-start justify-between gap-8 border-b border-charcoal/10 pb-12 md:flex-row md:items-end">
-          <Reveal>
+          <Reveal once={false}>
             <p className="font-sans text-[10px] font-light uppercase tracking-[0.28em] text-bronze-dim">
               04 / Signature scents
             </p>
@@ -56,7 +66,7 @@ export default function SignatureCollection() {
             </h2>
           </Reveal>
 
-          <Reveal delay={0.1} className="flex flex-wrap gap-2">
+          <Reveal delay={0.1} once={false} className="flex flex-wrap gap-2">
             {FILTERS.map((filter) => {
               const isActive = filter === active;
               return (
@@ -76,7 +86,7 @@ export default function SignatureCollection() {
           </Reveal>
         </div>
 
-        <RevealGroup className="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup once={false} className="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((product) => (
             <motion.article key={product.name} variants={revealItem} className="group">
               <a href="#" className="block">
@@ -125,6 +135,7 @@ export default function SignatureCollection() {
           ))}
         </RevealGroup>
       </div>
-    </section>
+    </motion.section>
+
   );
 }

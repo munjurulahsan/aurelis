@@ -34,7 +34,7 @@ function AnimatedStat({
   reduce: boolean;
 }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: false, margin: "-80px" });
 
   const match = value.match(/^(\d+)(%?)$/);
   const numeric = match ? parseInt(match[1], 10) : 0;
@@ -44,7 +44,10 @@ function AnimatedStat({
   const [display, setDisplay] = useState(reduce ? value : (padded ? "00" : "0") + suffix);
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView) {
+      if (!reduce) setDisplay((padded ? "00" : "0") + suffix);
+      return;
+    }
     if (reduce) {
       setDisplay(value);
       return;
@@ -62,10 +65,10 @@ function AnimatedStat({
 
   return (
     <div className="w-[170px]">
-      <p ref={ref} className="font-serif text-4xl tabular-nums text-charcoal">
+      <p ref={ref} className="font-serif text-4xl tabular-nums text-cream">
         {display}
       </p>
-      <p className="mt-2 font-sans text-[10px] font-light uppercase tracking-[0.22em] text-charcoal/55">
+      <p className="mt-2 font-sans text-[10px] font-light uppercase tracking-[0.22em] text-cream/55">
         {label}
       </p>
     </div>
@@ -118,14 +121,6 @@ export default function Philosophy() {
     my.set(0);
   }
 
-  const curtain: Variants = {
-    hidden: { scaleY: 1 },
-    show: {
-      scaleY: 0,
-      transition: { duration: 1.5, ease: EASE },
-    },
-  };
-
   const headingContainer: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: 0.12, delayChildren: 0.04 } },
@@ -147,13 +142,19 @@ export default function Philosophy() {
   };
 
   return (
-    <section className="bg-cream px-6 py-24 text-charcoal md:px-14 md:py-[140px]">
+    <motion.section
+      initial={{ opacity: 0, y: reduce ? 0 : 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: "-60px" }}
+      transition={{ duration: 1.2, ease: EASE }}
+      className="border-t border-cream/10 bg-[#221f1c] px-6 py-24 text-cream md:px-14 md:py-[140px]"
+    >
       <div className="mx-auto flex max-w-container flex-col items-start gap-16 lg:flex-row lg:items-end lg:gap-[92px]">
         <div className="w-full max-w-[666px]">
-          <Reveal>
+          <Reveal once={false}>
             <div className="flex items-center gap-3.5">
               <span className="h-px w-9 bg-bronze" />
-              <span className="font-sans text-[10px] font-light uppercase tracking-[0.28em] text-bronze-dim">
+              <span className="font-sans text-[10px] font-light uppercase tracking-[0.28em] text-bronze">
                 02 / Philosophy
               </span>
             </div>
@@ -162,7 +163,7 @@ export default function Philosophy() {
           <motion.h2
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             variants={headingContainer}
             className="mt-[54px] font-serif text-[44px] leading-[0.96] tracking-[-0.02em] sm:text-[64px] md:text-[86px]"
           >
@@ -172,7 +173,7 @@ export default function Philosophy() {
             <motion.span variants={line} className="block">
               is more than
             </motion.span>
-            <motion.span variants={italicLine} className="block italic text-wine">
+            <motion.span variants={italicLine} className="block italic text-amber">
               a scent.
             </motion.span>
           </motion.h2>
@@ -180,14 +181,14 @@ export default function Philosophy() {
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             variants={divider}
             style={{ transformOrigin: "left" }}
-            className="mt-14 h-px w-full bg-charcoal/10"
+            className="mt-14 h-px w-full bg-cream/10"
           />
 
-          <Reveal delay={0.18}>
-            <p className="mt-14 max-w-[462px] font-sans text-[17px] font-light leading-[1.85] text-charcoal/70">
+          <Reveal delay={0.18} once={false}>
+            <p className="mt-14 max-w-[462px] font-sans text-[17px] font-light leading-[1.85] text-cream/70">
               It is presence. It is emotion. It is the memory someone carries
               long after you&apos;ve left the room.
             </p>
@@ -256,37 +257,27 @@ export default function Philosophy() {
                 </>
               )}
             </motion.div>
-
-            <motion.div
-              aria-hidden
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={curtain}
-              style={{ transformOrigin: "top" }}
-              className="pointer-events-none absolute inset-0 bg-ink"
-            />
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: reduce ? 0 : 8 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.55 }}
             style={reduce ? undefined : { x: cardX, y: cardY }}
             className="absolute bottom-0 left-0 max-w-[280px] sm:left-6 sm:bottom-6"
           >
-            <div className="bg-cream px-8 py-6 shadow-[0_16px_40px_-20px_rgba(0,0,0,0.22)] transition-transform duration-300 ease-out hover:-translate-y-1">
-              <p className="font-sans text-[10px] font-light uppercase tracking-[0.24em] text-bronze-dim">
+            <div className="border border-cream/15 bg-[#1a1816]/90 px-8 py-6 shadow-[0_16px_40px_-20px_rgba(0,0,0,0.6)] backdrop-blur-md transition-transform duration-300 ease-out hover:-translate-y-1">
+              <p className="font-sans text-[10px] font-light uppercase tracking-[0.24em] text-bronze">
                 Grasse, France
               </p>
-              <p className="mt-2.5 font-serif text-[22px] leading-[1.4] text-charcoal">
+              <p className="mt-2.5 font-serif text-[22px] leading-[1.4] text-cream">
                 Composed by hand, in small batches, against the light.
               </p>
             </div>
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

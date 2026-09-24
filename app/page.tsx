@@ -10,24 +10,27 @@ import ScentFinder from "@/components/ScentFinder";
 import Testimonial from "@/components/Testimonial";
 import ClosingCTA from "@/components/ClosingCTA";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/motion/PageTransition";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main>
-        <Hero />
-        <Philosophy />
-        <SignatureCollection />
-        <ScentJourney />
-        <FeaturedNoir />
-        <Composition />
-        <TheHouse />
-        <ScentFinder />
-        <Testimonial />
-        <ClosingCTA />
-      </main>
-      <Footer />
+      <PageTransition>
+        <main>
+          <Hero />
+          <Philosophy />
+          <SignatureCollection />
+          <ScentJourney />
+          <FeaturedNoir />
+          <Composition />
+          <TheHouse />
+          <ScentFinder />
+          <Testimonial />
+          <ClosingCTA />
+        </main>
+        <Footer />
+      </PageTransition>
     </>
   );
 }
